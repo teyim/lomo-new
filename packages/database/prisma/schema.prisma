@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+// Category model
+// model Category {
+//   id        String    @id @default(auto()) @map("_id") @db.ObjectId
+//   name      String    @unique
+//   backgrounds Background[]
+// }
+
+// Background model
+model Background {
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
+  name              String        @unique
+  imageUrl          String
+  imgKey            String    
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  recommendedColors  Json 
+}
+
+// Enum for Layout Element Types
+enum LayoutElementType {
+  HEADING      
+  SUBHEADING   
+  IMAGE        
+}
+
+// LayoutElement model
+model LayoutElement {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  layoutId    String           @db.ObjectId
+  layout      Layout           @relation(fields: [layoutId], references: [id], onDelete: Cascade)
+  type        LayoutElementType // Use the enum for element type
+  label       String           // Optional: Name or label for the element
+  positionX   Int              // X-coordinate of the element
+  positionY   Int              // Y-coordinate of the element
+  width       Int?             // Optional: Width of the element
+  height      Int?             // Optional: Height of the element
+  zIndex      Int?             // Optional: Layering of elements
+  defaultText String?          // Optional: Default text for text-based elements
+  fontSize    Int?             // Optional: Font size for text-based elements
+  color       String?          // Optional: Text color (solid or gradient)
+  fontFamily  String?          // Optional: Font family for text-based elements
+  fontWeight  String?          // Optional: Font weight for text-based elements
+  imageUrl    String?          // Optional: Image URL for image-based elements
+}
+
+// Layout model
+model Layout {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String           // Layout name
+  elements          LayoutElement[]  // Associated elements for the layout
+  previewimage      String           // layout preview
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model AssetCategory {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String  @unique
+  assets    Asset[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Asset {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  imgUrl      String   // URL to the asset file
+  imgKey      String
+  categoryId  String   @db.ObjectId
+  category    AssetCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
