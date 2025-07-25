@@ -1,9 +1,9 @@
 {
-  "name": "@repo/database",
+  "name": "@repo/db",
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./*": "./src/*.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "build": "prisma generate && tsc",
