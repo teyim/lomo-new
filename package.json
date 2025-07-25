@@ -7,6 +7,7 @@
     "clean": "turbo run clean",
     "start": "turbo run start",
     "lint": "turbo run lint",
+    "studio": "pnpm --filter @repo/db studio",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
   },

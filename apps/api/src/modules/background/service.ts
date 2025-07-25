@@ -80,15 +80,15 @@ export const updateBackgroundService = async (
   name: string,
   newImgUrl: string,
   newImgKey: string,
-  recommendedColors: string,
-) => {
+  recommendedColors: string
+): Promise<any> => {
   try {
     const updatedBackground = await updateBackground(
       id,
       name,
       newImgUrl,
       newImgKey,
-      recommendedColors,
+      recommendedColors
     );
     return updatedBackground;
   } catch (error) {

@@ -1,14 +1,11 @@
 {
   "name": "@repo/db",
   "version": "1.0.0",
-  "type": "module",
-  "exports": {
-    ".": "./src/index.ts"
-  },
+  "private": "true",
+  "main": "src/index.ts",
   "scripts": {
-    "build": "prisma generate && tsc",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
+    "db:push": "prisma db push",
     "db:seed": "tsx src/seed.ts",
     "studio": "prisma studio"
   },

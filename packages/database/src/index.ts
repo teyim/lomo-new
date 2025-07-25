@@ -1,13 +1,2 @@
-import { PrismaClient } from "@prisma/client";
-
-declare global {
-  var prisma: PrismaClient | undefined;
-}
-
-export const prisma = global.prisma || new PrismaClient();
-
-if (process.env.NODE_ENV !== 'production') global.prisma = prisma;
-
-export * from '@prisma/client';
-
-export { type Asset, type Background } from '@prisma/client';
+export { prisma } from './client';
+export type { Asset, AssetCategory, LayoutElement, Background, Layout } from '../generated/client';

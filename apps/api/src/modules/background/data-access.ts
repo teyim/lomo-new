@@ -2,14 +2,14 @@ import { getDataAccessErrorMessage } from '../../utils/errors';
 import { ENV_variables, HttpStatusCode } from '../../constants';
 import { deleteSupabaseObject } from '../../utils';
 import { ErrorWithStatus } from '../../types/error';
-import { prisma, Background } from '@repo/db';
+import { Background, prisma } from '@repo/db';
 
 export const addBackground = async (
   name: string,
   imgUrl: string,
   imgkey: string,
   recommendedColors: string
-) => {
+): Promise<Background> => {
   try {
     const existingBackground = await prisma.background.findUnique({ where: { name } });
 
@@ -101,7 +101,7 @@ export const updateBackground = async (
   newImgUrl: string,
   newImgKey: string,
   recommendedColors: string
-) => {
+): Promise<Background> => {
   try {
     // Get existing background
     const existingBackground = await prisma.background.findUnique({ where: { id } });

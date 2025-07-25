@@ -1,7 +1,9 @@
 import { getDataAccessErrorMessage } from '../../utils/errors';
 import { prisma } from '@repo/db';
 
-export const fetchAllLayouts = async () => {
+import type { Layout } from '@repo/db';
+
+export const fetchAllLayouts = async (): Promise<Layout[]> => {
   try {
     const layouts = await prisma.layout.findMany({
       include: { elements: true },
