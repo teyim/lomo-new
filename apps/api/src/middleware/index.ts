@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpStatusCode } from '../constants';
-import { prisma } from '../constants';
+import { prisma } from '@repo/db';
 
 export const checkBackgroundExists = async (
   req: Request,

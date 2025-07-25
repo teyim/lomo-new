@@ -1,11 +1,8 @@
 import { DatabaseActions } from '../types';
-import { PrismaClient } from '@prisma/client';
 
 import dotenv from 'dotenv';
 
 dotenv.config();
-
-export const prisma = new PrismaClient();
 
 export const crudErrorMessages: Record<DatabaseActions, string> = {
   get: 'fetching',
@@ -50,5 +47,3 @@ export const ENV_variables = {
   SUPABASE_URL: process.env.SUPABASE_URL || '',
   SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
 };
-
-

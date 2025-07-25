@@ -1,4 +1,4 @@
-import { prisma } from '../../constants';
+import { prisma } from '@repo/db';
 import { getDataAccessErrorMessage } from '../../utils/errors';
 
 export const addAssetCategory = async (name: string) => {

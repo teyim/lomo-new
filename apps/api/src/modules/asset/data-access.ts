@@ -1,9 +1,8 @@
-import { Asset } from '@repo/db';
 import { ENV_variables, HttpStatusCode } from '../../constants';
 import { ErrorWithStatus } from '../../types/error';
 import { deleteSupabaseObject } from '../../utils';
 import { getDataAccessErrorMessage } from '../../utils/errors';
-import { prisma } from '../../constants';
+import { Asset, prisma } from '@repo/db';
 
 export const addAsset = async (
   name: string,

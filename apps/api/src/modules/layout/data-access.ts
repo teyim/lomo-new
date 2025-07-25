@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { getDataAccessErrorMessage } from '../../utils/errors';
-const prisma = new PrismaClient();
+import { prisma } from '@repo/db';
 
 export const fetchAllLayouts = async () => {
   try {

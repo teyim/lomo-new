@@ -1,9 +1,8 @@
-import { Background } from '@prisma/client';
 import { getDataAccessErrorMessage } from '../../utils/errors';
 import { ENV_variables, HttpStatusCode } from '../../constants';
 import { deleteSupabaseObject } from '../../utils';
 import { ErrorWithStatus } from '../../types/error';
-import { prisma } from '../../constants';
+import { prisma, Background } from '@repo/db';
 
 export const addBackground = async (
   name: string,
