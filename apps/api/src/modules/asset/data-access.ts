@@ -1,4 +1,4 @@
-import { Asset } from '@prisma/client';
+import { Asset } from '@repo/db';
 import { ENV_variables, HttpStatusCode } from '../../constants';
 import { ErrorWithStatus } from '../../types/error';
 import { deleteSupabaseObject } from '../../utils';

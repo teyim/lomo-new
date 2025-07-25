@@ -12,7 +12,7 @@ import {
 import { ENV_variables, ErrorMessages, HttpStatusCode } from "../../constants";
 import { handleError } from "../../utils/errors";
 import { deleteSupabaseObject } from '../../utils';
-import { Background } from "@repo/db";
+
 
 export const addBackgroundService = async (
   name: string,
