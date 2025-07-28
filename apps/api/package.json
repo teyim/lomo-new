@@ -2,11 +2,11 @@
   "name": "api",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "clean": "rm -rf dist",
-    "dev": "nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
-    "lint": "tsc --noEmit && eslint \"src/**/*.ts*\" --max-warnings 0",
-    "start": "node dist/index.js"
+    "dev": "tsup --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
+    "lint": "ts-node --noEmit && eslint \"src/**/*.ts*\" --max-warnings 0",
+    "start": "ts-node dist/index.js"
   },
   "dependencies": {
     "@repo/db": "workspace:*",
@@ -17,6 +17,8 @@
     "express": "^4.21.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

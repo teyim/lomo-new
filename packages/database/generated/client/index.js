@@ -176,6 +176,8 @@ const config = {
       "fromEnvVar": null
     },
     "config": {
+      "moduleFormat": "esm",
+      "runtime": "node",
       "engineType": "library"
     },
     "binaryTargets": [
@@ -183,6 +185,18 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -208,8 +222,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/client\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// Category model\n// model Category {\n//   id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\n//   name      String    @unique\n//   backgrounds Background[]\n// }\n\n// Background model\nmodel Background {\n  id                String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name              String   @unique\n  imageUrl          String\n  imgKey            String\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n  recommendedColors Json\n}\n\n// Enum for Layout Element Types\nenum LayoutElementType {\n  HEADING\n  SUBHEADING\n  IMAGE\n}\n\n// LayoutElement model\nmodel LayoutElement {\n  id          String            @id @default(auto()) @map(\"_id\") @db.ObjectId\n  layoutId    String            @db.ObjectId\n  layout      Layout            @relation(fields: [layoutId], references: [id], onDelete: Cascade)\n  type        LayoutElementType // Use the enum for element type\n  label       String // Optional: Name or label for the element\n  positionX   Int // X-coordinate of the element\n  positionY   Int // Y-coordinate of the element\n  width       Int? // Optional: Width of the element\n  height      Int? // Optional: Height of the element\n  zIndex      Int? // Optional: Layering of elements\n  defaultText String? // Optional: Default text for text-based elements\n  fontSize    Int? // Optional: Font size for text-based elements\n  color       String? // Optional: Text color (solid or gradient)\n  fontFamily  String? // Optional: Font family for text-based elements\n  fontWeight  String? // Optional: Font weight for text-based elements\n  imageUrl    String? // Optional: Image URL for image-based elements\n}\n\n// Layout model\nmodel Layout {\n  id           String          @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name         String // Layout name\n  elements     LayoutElement[] // Associated elements for the layout\n  previewimage String // layout preview\n  createdAt    DateTime        @default(now())\n  updatedAt    DateTime        @updatedAt\n}\n\nmodel AssetCategory {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name      String   @unique\n  assets    Asset[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Asset {\n  id         String        @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String        @unique\n  imgUrl     String // URL to the asset file\n  imgKey     String\n  categoryId String        @db.ObjectId\n  category   AssetCategory @relation(fields: [categoryId], references: [id])\n  createdAt  DateTime      @default(now())\n  updatedAt  DateTime      @updatedAt\n}\n",
-  "inlineSchemaHash": "52723766838b14673e586a245debb23b9d75f0141815078d3d60c0f7abe96aad",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/client\"\n  moduleFormat  = \"esm\"\n  runtime       = \"node\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\", \"rhel-openssl-3.0.x\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// Category model\n// model Category {\n//   id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\n//   name      String    @unique\n//   backgrounds Background[]\n// }\n\n// Background model\nmodel Background {\n  id                String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name              String   @unique\n  imageUrl          String\n  imgKey            String\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n  recommendedColors Json\n}\n\n// Enum for Layout Element Types\nenum LayoutElementType {\n  HEADING\n  SUBHEADING\n  IMAGE\n}\n\n// LayoutElement model\nmodel LayoutElement {\n  id          String            @id @default(auto()) @map(\"_id\") @db.ObjectId\n  layoutId    String            @db.ObjectId\n  layout      Layout            @relation(fields: [layoutId], references: [id], onDelete: Cascade)\n  type        LayoutElementType // Use the enum for element type\n  label       String // Optional: Name or label for the element\n  positionX   Int // X-coordinate of the element\n  positionY   Int // Y-coordinate of the element\n  width       Int? // Optional: Width of the element\n  height      Int? // Optional: Height of the element\n  zIndex      Int? // Optional: Layering of elements\n  defaultText String? // Optional: Default text for text-based elements\n  fontSize    Int? // Optional: Font size for text-based elements\n  color       String? // Optional: Text color (solid or gradient)\n  fontFamily  String? // Optional: Font family for text-based elements\n  fontWeight  String? // Optional: Font weight for text-based elements\n  imageUrl    String? // Optional: Image URL for image-based elements\n}\n\n// Layout model\nmodel Layout {\n  id           String          @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name         String // Layout name\n  elements     LayoutElement[] // Associated elements for the layout\n  previewimage String // layout preview\n  createdAt    DateTime        @default(now())\n  updatedAt    DateTime        @updatedAt\n}\n\nmodel AssetCategory {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name      String   @unique\n  assets    Asset[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Asset {\n  id         String        @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name       String        @unique\n  imgUrl     String // URL to the asset file\n  imgKey     String\n  categoryId String        @db.ObjectId\n  category   AssetCategory @relation(fields: [categoryId], references: [id])\n  createdAt  DateTime      @default(now())\n  updatedAt  DateTime      @updatedAt\n}\n",
+  "inlineSchemaHash": "412f04c2f20f8889e07ae5d657aa6b663d5cd6368d8c7ecef2601fe3c5d308f2",
   "copyEngine": true
 }
 
@@ -250,6 +264,18 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
 path.join(process.cwd(), "generated/client/libquery_engine-darwin-arm64.dylib.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/client/libquery_engine-debian-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/client/libquery_engine-rhel-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/client/libquery_engine-linux-musl-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/client/schema.prisma")
