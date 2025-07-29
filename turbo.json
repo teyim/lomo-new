@@ -3,10 +3,22 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build", "^db:push"],
+      "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "generated/**"],
       "env": ["DATABASE_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "NEXT_PUBLIC_API_HOST"]
+    },
+    "api#build": {
+      "dependsOn": ["^build", "^db:push"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**", "generated/**"],
+      "env": ["DATABASE_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]
+    },
+    "web#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": ["NEXT_PUBLIC_API_HOST"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -15,12 +27,28 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "api#dev": {
       "dependsOn": ["^db:push"],
       "cache": false,
       "persistent": true
     },
+    "web#dev": {
+      "cache": false,
+      "persistent": true
+    },
     "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "api#start": {
       "dependsOn": ["^db:push"],
+      "cache": false,
+      "persistent": true
+    },
+    "web#start": {
       "cache": false,
       "persistent": true
     },
