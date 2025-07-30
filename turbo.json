@@ -9,7 +9,7 @@
       "env": ["DATABASE_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "NEXT_PUBLIC_API_HOST"]
     },
     "api#build": {
-      "dependsOn": ["^build", "^db:push"],
+      "dependsOn": ["^build", "^db:push", "^db:seed"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", "generated/**"],
       "env": ["DATABASE_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]
@@ -31,7 +31,7 @@
       "persistent": true
     },
     "api#dev": {
-      "dependsOn": ["^db:push"],
+      "dependsOn": ["^db:push", "^db:seed"],
       "cache": false,
       "persistent": true
     },
@@ -44,7 +44,7 @@
       "persistent": true
     },
     "api#start": {
-      "dependsOn": ["^db:push"],
+      "dependsOn": ["^db:push", "^db:seed"],
       "cache": false,
       "persistent": true
     },
