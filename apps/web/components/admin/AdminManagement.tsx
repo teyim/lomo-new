@@ -66,14 +66,10 @@ export function AdminManagement() {
       queryClient.invalidateQueries({ queryKey: ['admins'] });
       setIsCreateDialogOpen(false);
       setNewAdmin({ email: '', password: '', name: '' });
-      toast('Success', {
-        description: 'Admin created successfully',
-      });
+      toast.success('Admin created successfully');
     },
     onError: (error: Error) => {
-      toast('Error', {
-        description: error.message,
-      });
+      toast.error(error.message);
     },
   });
 
@@ -83,14 +79,10 @@ export function AdminManagement() {
       adminManagementApi.updateStatus(id, isActive),
     onSuccess: updatedAdmin => {
       queryClient.invalidateQueries({ queryKey: ['admins'] });
-      toast('Success', {
-        description: `Admin ${updatedAdmin.isActive ? 'activated' : 'deactivated'} successfully`,
-      });
+      toast.success(`Admin ${updatedAdmin.isActive ? 'activated' : 'deactivated'} successfully`);
     },
     onError: (error: Error) => {
-      toast('Error', {
-        description: error.message,
-      });
+      toast.error(error.message);
     },
   });
 
@@ -99,22 +91,16 @@ export function AdminManagement() {
     mutationFn: adminManagementApi.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admins'] });
-      toast('Success', {
-        description: 'Admin deleted successfully',
-      });
+      toast.success('Admin deleted successfully');
     },
     onError: (error: Error) => {
-      toast('Error', {
-        description: error.message,
-      });
+      toast.error(error.message);
     },
   });
 
   const handleCreateAdmin = () => {
     if (!newAdmin.email || !newAdmin.password) {
-      toast('Error', {
-        description: 'Email and password are required',
-      });
+      toast.error('Email and password are required');
       return;
     }
 

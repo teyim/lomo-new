@@ -7,6 +7,7 @@ import { Input } from '@repo/ui/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@repo/ui/components/ui/select';
 import { Card } from '@repo/ui/components/ui/card';
 import { useAssetCategories, useUploadAsset, useUploadBackground } from '@/hooks/useAdminQueries';
+import Image from 'next/image';
 
 interface FileUploaderProps {
   category: 'assets' | 'backgrounds' | 'layouts';
@@ -48,8 +49,8 @@ export function FileUploader({ category }: FileUploaderProps) {
       id: Math.random().toString(36).substr(2, 9),
       status: 'pending',
       progress: 0,
-      name: file.name.split('.')[0], // Default name without extension
-      categoryId: assetCategories[0]?.id || undefined
+      name: file.name.split('.')[0] || file.name, // Default name without extension, fallback to full name
+      categoryId: assetCategories[0]?.id || undefined,
     }));
 
     // Validate files
@@ -171,15 +172,9 @@ export function FileUploader({ category }: FileUploaderProps) {
         onClick={() => fileInputRef.current?.click()}
       >
         <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-        <p className="text-lg font-medium mb-2">
-          Drop files here or click to browse
-        </p>
-        <p className="text-sm text-muted-foreground">
-          Accepted formats: {acceptedTypes[category]}
-        </p>
-        <p className="text-xs text-muted-foreground mt-1">
-          Maximum file size: 10MB
-        </p>
+        <p className="text-lg font-medium mb-2">Drop files here or click to browse</p>
+        <p className="text-sm text-muted-foreground">Accepted formats: {acceptedTypes[category]}</p>
+        <p className="text-xs text-muted-foreground mt-1">Maximum file size: 10MB</p>
       </Card>
 
       <input
@@ -187,7 +182,7 @@ export function FileUploader({ category }: FileUploaderProps) {
         type="file"
         multiple
         accept={acceptedTypes[category]}
-        onChange={(e) => handleFileSelect(e.target.files)}
+        onChange={e => handleFileSelect(e.target.files)}
         className="hidden"
       />
 
@@ -206,14 +201,19 @@ export function FileUploader({ category }: FileUploaderProps) {
           </div>
 
           <div className="space-y-2">
-            {files.map((fileItem) => (
-              <Card key={fileItem.id} className="p-3">
+            {files.map(fileItem => (
+              <Card
+                key={fileItem.id}
+                className="p-3"
+              >
                 <div className="flex items-center gap-3">
                   <div className="flex-shrink-0">
                     {getFileIcon(fileItem.file) ? (
-                      <img
+                      <Image
                         src={getFileIcon(fileItem.file)!}
                         alt={fileItem.file.name}
+                        width={40}
+                        height={40}
                         className="w-10 h-10 object-cover rounded"
                       />
                     ) : (
@@ -223,9 +223,7 @@ export function FileUploader({ category }: FileUploaderProps) {
 
                   <div className="flex-1 min-w-0 space-y-2">
                     <div>
-                      <p className="text-sm font-medium truncate">
-                        {fileItem.file.name}
-                      </p>
+                      <p className="text-sm font-medium truncate">{fileItem.file.name}</p>
                       <p className="text-xs text-muted-foreground">
                         {(fileItem.file.size / 1024 / 1024).toFixed(2)} MB
                       </p>
@@ -237,21 +235,24 @@ export function FileUploader({ category }: FileUploaderProps) {
                         <Input
                           placeholder="Enter file name"
                           value={fileItem.name}
-                          onChange={(e) => updateFileName(fileItem.id, e.target.value)}
+                          onChange={e => updateFileName(fileItem.id, e.target.value)}
                           className="h-8 text-xs"
                         />
-                        
+
                         {category === 'assets' && assetCategories.length > 0 && (
                           <Select
                             value={fileItem.categoryId || ''}
-                            onValueChange={(value) => updateFileCategory(fileItem.id, value)}
+                            onValueChange={value => updateFileCategory(fileItem.id, value)}
                           >
                             <SelectTrigger className="h-8 text-xs">
                               <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {assetCategories.map((cat) => (
-                                <SelectItem key={cat.id} value={cat.id}>
+                              {assetCategories.map(cat => (
+                                <SelectItem
+                                  key={cat.id}
+                                  value={cat.id}
+                                >
                                   {cat.name}
                                 </SelectItem>
                               ))}
@@ -260,7 +261,7 @@ export function FileUploader({ category }: FileUploaderProps) {
                         )}
                       </div>
                     )}
-                    
+
                     {fileItem.status === 'uploading' && (
                       <div className="mt-1">
                         <div className="w-full bg-secondary rounded-full h-1.5">
@@ -271,7 +272,7 @@ export function FileUploader({ category }: FileUploaderProps) {
                         </div>
                       </div>
                     )}
-                    
+
                     {fileItem.error && (
                       <p className="text-xs text-destructive mt-1">{fileItem.error}</p>
                     )}

@@ -57,6 +57,10 @@
     },
     "db:push": {
       "cache": false
+    },
+    "db:seed": {
+      "dependsOn": ["^db:push"],
+      "cache": false
     }
   }
 }
