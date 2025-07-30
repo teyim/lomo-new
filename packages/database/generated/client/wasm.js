@@ -166,6 +166,26 @@ exports.Prisma.AssetScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  password: 'password',
+  name: 'name',
+  isActive: 'isActive',
+  lastLoginAt: 'lastLoginAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdminSessionScalarFieldEnum = {
+  id: 'id',
+  adminId: 'adminId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -186,7 +206,9 @@ exports.Prisma.ModelName = {
   LayoutElement: 'LayoutElement',
   Layout: 'Layout',
   AssetCategory: 'AssetCategory',
-  Asset: 'Asset'
+  Asset: 'Asset',
+  Admin: 'Admin',
+  AdminSession: 'AdminSession'
 };
 
 /**

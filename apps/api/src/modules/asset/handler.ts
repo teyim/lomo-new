@@ -1,6 +1,7 @@
 import { Router, type Router as ExpressRouter } from 'express';
 
 import upload from '../../utils/upload';
+import { adminAuthMiddleware } from '../../middleware/adminAuth';
 import {
   addAssetController,
   deleteAssetController,
@@ -11,19 +12,13 @@ import {
 
 const router: ExpressRouter = Router();
 
-// add background
-router.post('/', upload().single('asset'), addAssetController);
-
-//get all assets
+// Public routes (no auth required)
 router.get('/', getAllAssetsController);
-
-//get assets by category
 router.get('/:categoryId', getAssetByCategoryController);
 
-//delete asset
-router.delete('/:id', deleteAssetController);
-
-//update asset
-router.put('/:id', upload().single('asset'), updateAssetController);
+// Protected routes (admin auth required)
+router.post('/', adminAuthMiddleware, upload().single('asset'), addAssetController);
+router.delete('/:id', adminAuthMiddleware, deleteAssetController);
+router.put('/:id', adminAuthMiddleware, upload().single('asset'), updateAssetController);
 
 export default router;

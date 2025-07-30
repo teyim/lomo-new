@@ -90,3 +90,27 @@ model Asset {
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
 }
+
+// Admin model for authentication
+model Admin {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  email       String         @unique
+  password    String // Hashed password
+  name        String?
+  isActive    Boolean        @default(true)
+  lastLoginAt DateTime?
+  sessions    AdminSession[] // Relation to admin sessions
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+// Admin session model for JWT token management
+model AdminSession {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  adminId   String   @db.ObjectId
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -6,16 +6,16 @@ import {
   updateBackgroundController,
 } from './controller';
 import upload from '../../utils/upload';
+import { adminAuthMiddleware } from '../../middleware/adminAuth';
 
 const router: ExpressRouter = Router();
 
-// add background
-router.post('/', upload().single('background'), addBackgroundController);
-// delete background
-router.delete('/:id', deleteBackgroundController);
-// get all backgrounds
+// Public routes (no auth required)
 router.get('/', getAllBackgroundsController);
-//update background
-router.put('/:id', upload().single('background'), updateBackgroundController);
+
+// Protected routes (admin auth required)
+router.post('/', adminAuthMiddleware, upload().single('background'), addBackgroundController);
+router.delete('/:id', adminAuthMiddleware, deleteBackgroundController);
+router.put('/:id', adminAuthMiddleware, upload().single('background'), updateBackgroundController);
 
 export default router;

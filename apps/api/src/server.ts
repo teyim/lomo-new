@@ -4,6 +4,7 @@ import backgroundHandler from "./modules/background/handler";
 import layoutHandler from "./modules/layout/handler";
 import assetCategoryHandler from "./modules/assetCategory/handler";
 import assetHandler from './modules/asset/handler';
+import adminHandler from './modules/admin/handler';
 import morgan from "morgan";
 import cors from "cors";
 import { errorHandler } from "./middleware/errorHandler";
@@ -16,6 +17,7 @@ export const createServer = (): Express => {
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors())
+    .use('/admin', adminHandler)
     .use('/backgrounds', backgroundHandler)
     .use('/layouts', layoutHandler)
     .use('/asset-categories', assetCategoryHandler)
