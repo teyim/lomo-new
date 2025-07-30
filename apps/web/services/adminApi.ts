@@ -34,6 +34,22 @@ export interface AssetCategory {
   updatedAt: string;
 }
 
+export interface Admin {
+  id: string;
+  email: string;
+  name: string | null;
+  isActive: boolean;
+  lastLoginAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateAdminRequest {
+  email: string;
+  password: string;
+  name?: string;
+}
+
 export interface AdminLoginResponse {
   admin: {
     id: string;
@@ -302,5 +318,73 @@ export const assetCategoryApi = {
     }
     const data = await response.json();
     return data.categories || [];
+  },
+};
+
+// Admin Management API functions
+export const adminManagementApi = {
+  // Get all admins
+  getAll: async (): Promise<Admin[]> => {
+    const response = await fetch(`${API_BASE_URL}/admin/list`, {
+      headers: getAuthHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch admins');
+    }
+    const data = await response.json();
+    return data.data.admins || [];
+  },
+
+  // Create new admin
+  create: async (adminData: CreateAdminRequest): Promise<Admin> => {
+    const response = await fetch(`${API_BASE_URL}/admin/create`, {
+      method: 'POST',
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(adminData),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to create admin');
+    }
+
+    const data = await response.json();
+    return data.data.admin;
+  },
+
+  // Update admin status (activate/deactivate)
+  updateStatus: async (id: string, isActive: boolean): Promise<Admin> => {
+    const response = await fetch(`${API_BASE_URL}/admin/${id}/status`, {
+      method: 'PATCH',
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ isActive }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to update admin status');
+    }
+
+    const data = await response.json();
+    return data.data.admin;
+  },
+
+  // Delete admin
+  delete: async (id: string): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/admin/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to delete admin');
+    }
   },
 };

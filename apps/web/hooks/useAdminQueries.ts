@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { assetApi, backgroundApi, layoutApi, assetCategoryApi, Asset, Background, Layout, AssetCategory } from '@/services/adminApi';
+import { assetApi, backgroundApi, layoutApi, assetCategoryApi, adminManagementApi, Asset, Background, Layout, AssetCategory, Admin, CreateAdminRequest } from '@/services/adminApi';
 
 // Query Keys
 export const adminQueryKeys = {
@@ -8,6 +8,7 @@ export const adminQueryKeys = {
   backgrounds: ['admin', 'backgrounds'] as const,
   layouts: ['admin', 'layouts'] as const,
   assetCategories: ['admin', 'asset-categories'] as const,
+  admins: ['admin', 'admins'] as const,
 };
 
 // Asset Queries
@@ -125,6 +126,50 @@ export function useUpdateBackground() {
       backgroundApi.update(id, file, name),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: adminQueryKeys.backgrounds });
+    },
+  });
+}
+
+// Admin Management Queries
+export function useAdmins() {
+  return useQuery({
+    queryKey: adminQueryKeys.admins,
+    queryFn: adminManagementApi.getAll,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
+
+// Admin Management Mutations
+export function useCreateAdmin() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: adminManagementApi.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: adminQueryKeys.admins });
+    },
+  });
+}
+
+export function useUpdateAdminStatus() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) =>
+      adminManagementApi.updateStatus(id, isActive),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: adminQueryKeys.admins });
+    },
+  });
+}
+
+export function useDeleteAdmin() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: adminManagementApi.delete,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: adminQueryKeys.admins });
     },
   });
 }

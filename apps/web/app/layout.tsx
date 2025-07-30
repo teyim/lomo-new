@@ -6,6 +6,7 @@ import { Lexend, Lekton } from 'next/font/google';
 import { ModalProvider } from '@/context/ModalContext';
 import ReactQueryProvider from '@/components/queryProvider';
 import type { Metadata } from 'next';
+import { Toaster } from '@workspace/ui/components/ui/sonner';
 
 const lexend = Lexend({ subsets: ['latin'], display: 'swap' });
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="font-geist_mono text-primary">
         <div id="modal-root"></div>
+        <Toaster />
         <ReactQueryProvider>
           <ModalProvider>{children}</ModalProvider>
         </ReactQueryProvider>
