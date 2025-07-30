@@ -89,7 +89,7 @@ export const getAuthToken = (): string | null => {
   return authToken;
 };
 
-const getAuthHeaders = () => {
+const getAuthHeaders = (): Record<string, string> => {
   const token = getAuthToken();
   return token ? { Authorization: `Bearer ${token}` } : {};
 };

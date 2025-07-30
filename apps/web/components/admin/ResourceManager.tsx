@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Trash2, Download, Eye, Search, Grid, List, RefreshCw, FileX } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@repo/ui/components/ui/button';
 import { Input } from '@repo/ui/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@repo/ui/components/ui/select';
@@ -224,12 +225,13 @@ export function ResourceManager({ category }: ResourceManagerProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredFiles.map((file) => (
             <Card key={file.id} className="p-4 hover:shadow-md transition-shadow">
-              <div className="aspect-square bg-muted rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+              <div className="aspect-square bg-muted rounded-lg mb-3 flex items-center justify-center overflow-hidden relative">
                 {isImage(file) ? (
-                  <img
+                  <Image
                     src={getFileUrl(file)}
                     alt={file.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 ) : (
                   <div className="text-center">
@@ -314,11 +316,13 @@ export function ResourceManager({ category }: ResourceManagerProps) {
                   <tr key={file.id} className="hover:bg-muted/50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">
-                        <div className="flex-shrink-0 w-10 h-10">
+                        <div className="flex-shrink-0 w-10 h-10 relative">
                           {isImage(file) ? (
-                            <img
+                            <Image
                               src={getFileUrl(file)}
                               alt={file.name}
+                              width={40}
+                              height={40}
                               className="w-10 h-10 object-cover rounded"
                             />
                           ) : (
