@@ -41,18 +41,18 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-24">
-      <div className="grid md:grid-cols-[1fr,1.5fr] gap-12 items-start">
-        <div className="space-y-6">
+    <div className="max-w-7xl mx-auto px-4 py-16 sm:py-20 md:py-24">
+      <div className="grid lg:grid-cols-[1fr,1.5fr] gap-8 sm:gap-12 items-start">
+        <div className="space-y-4 sm:space-y-6 mb-8 lg:mb-0">
           <span className="text-sm font-medium text-muted-foreground tracking-wider">
             COPYRIGHT INFO
           </span>
-          <h2 className="text-5xl font-semibold leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
             Copyright &
             <br />
             Usage Rights
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg sm:text-xl text-muted-foreground">
             Important information about asset ownership, usage rights, and copyright considerations
             when using Lomo.
           </p>
@@ -68,10 +68,10 @@ export default function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="flex justify-between items-center w-full p-6 text-left"
+                className="flex justify-between items-center w-full p-4 sm:p-6 text-left"
                 aria-expanded={openIndex === index}
               >
-                <span className="text-lg font-medium pr-8">{faq.question}</span>
+                <span className="text-base sm:text-lg font-medium pr-4 sm:pr-8">{faq.question}</span>
                 <motion.div
                   className="flex items-center justify-center w-8 h-8 rounded-full bg-background border"
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
@@ -88,7 +88,7 @@ export default function FAQSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
-                    <div className="px-6 pb-6 text-muted-foreground">{faq.answer}</div>
+                    <div className="px-4 sm:px-6 pb-4 sm:pb-6 text-muted-foreground">{faq.answer}</div>
                   </motion.div>
                 )}
               </AnimatePresence>

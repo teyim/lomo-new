@@ -48,21 +48,21 @@ export default function FeatureShowcase() {
   const [selectedFeature, setSelectedFeature] = useState(0);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
-        <p className="text-xl text-muted-foreground">
+    <div className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
+        <p className="text-lg sm:text-xl text-muted-foreground px-4 sm:px-0">
           Create stunning thumbnails in four simple steps
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 items-start">
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
         <div className="space-y-4">
           {features.map((feature, index) => (
             <button
               key={index}
               onClick={() => setSelectedFeature(index)}
-              className={`w-full text-left p-6 rounded-xl transition-colors ${
+              className={`w-full text-left p-4 sm:p-6 rounded-xl transition-colors ${
                 selectedFeature === index
                   ? 'bg-primary/5 border-l-4 border-primary'
                   : 'hover:bg-muted'
@@ -88,7 +88,7 @@ export default function FeatureShowcase() {
           ))}
         </div>
 
-        <div className="relative h-[400px] bg-muted/30 rounded-3xl p-6">
+        <div className="relative h-[300px] sm:h-[400px] bg-muted/30 rounded-3xl p-4 sm:p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedFeature}
@@ -98,12 +98,12 @@ export default function FeatureShowcase() {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="h-full"
             >
-              <div className="bg-background rounded-2xl p-6 shadow-lg">
-                <div className="mb-6">
+              <div className="bg-background rounded-2xl p-4 sm:p-6 shadow-lg">
+                <div className="mb-4 sm:mb-6">
                   <div className="text-sm text-muted-foreground mb-1">Total Bill</div>
-                  <div className="text-3xl font-bold">{features[selectedFeature]?.chart.total}</div>
+                  <div className="text-2xl sm:text-3xl font-bold">{features[selectedFeature]?.chart.total}</div>
                 </div>
-                <div className="h-[200px] flex items-end gap-2">
+                <div className="h-[120px] sm:h-[200px] flex items-end gap-2">
                   {features[selectedFeature]?.chart?.data?.map((value, i) => (
                     <motion.div
                       key={i}

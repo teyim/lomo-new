@@ -99,11 +99,11 @@ export default function StackedCards() {
               <div
                 className={`${card.gradient} rounded-2xl p-2 sm:p-4 transition-all duration-500 backdrop-blur-sm overflow-hidden group`}
               >
-                <div className="h-[180px] sm:h-[200px] md:h-[250px] w-full relative">
+                <div className="h-[180px] sm:h-[100px] md:h-[250px] w-full relative">
                   <Image
                     src={card.image}
                     alt={card.name}
-                    className="object-cover h-full w-full rounded-xl"
+                    className="object-fill h-full w-full rounded-xl"
                     priority={index === 0}
                     sizes="(max-width: 640px) 280px, (max-width: 768px) 384px, 448px"
                   />

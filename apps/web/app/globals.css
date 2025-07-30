@@ -9,3 +9,29 @@
  * you can always add it with the @source directive.
  */
 @source '../node_modules/@repo/ui';
+
+/* Responsive utilities */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 640px) {
+  * {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}

@@ -60,7 +60,7 @@ export default function Testimonials() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <div className="bg-[#0F1117] py-24 px-4 relative overflow-hidden">
+    <div className="bg-[#0F1117] py-16 sm:py-20 md:py-24 px-4 relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -73,14 +73,14 @@ export default function Testimonials() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-bold text-white text-center mb-16"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 sm:mb-16 px-4"
       >
         Loved by content creators worldwide
       </motion.h2>
 
       <div className="relative w-full overflow-hidden">
         <motion.div
-          className="flex gap-8 w-fit"
+          className="flex gap-4 sm:gap-6 md:gap-8 w-fit"
           animate={{
             x: ['0%', '-50%'],
           }}
@@ -93,7 +93,7 @@ export default function Testimonials() {
           {duplicatedTestimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[350px] bg-white/5 backdrop-blur-sm p-6 rounded-2xl"
+              className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[350px] bg-white/5 backdrop-blur-sm p-4 sm:p-6 rounded-2xl"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
