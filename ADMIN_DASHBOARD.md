@@ -20,7 +20,8 @@ A secure admin dashboard for managing resources including assets, backgrounds, a
 Visit: `http://localhost:3000/admin`
 
 ### 2. Login Credentials
-- **Password**: `admin123!`
+- **Email**: admin@lomo.com
+- **Password**: admin123!
 
 ### 3. Dashboard Features
 
