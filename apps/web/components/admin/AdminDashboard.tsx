@@ -58,7 +58,7 @@ export function AdminDashboard() {
         <div className="mb-8">
           <div className="border-b">
             <nav className="-mb-px flex space-x-8">
-              {tabs.map((tab) => {
+              {tabs.map(tab => {
                 const Icon = tab.icon;
                 return (
                   <Button
@@ -84,10 +84,8 @@ export function AdminDashboard() {
         <div className="space-y-6">
           {/* Tab Description */}
           <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="pt-6">
-              <p className="text-primary">
-                {tabs.find(tab => tab.id === activeTab)?.description}
-              </p>
+            <CardContent>
+              <p className="text-primary">{tabs.find(tab => tab.id === activeTab)?.description}</p>
             </CardContent>
           </Card>
 
