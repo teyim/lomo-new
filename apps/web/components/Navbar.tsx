@@ -42,14 +42,16 @@ function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex justify-end items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full"
+          <a
+            href="https://github.com/teyim/lomo-new"
+            className=""
           >
             <Github className="size-5" />
-          </Button>
-          <Button className="bg-black hover:bg-black/90 text-white rounded-2xl">Editor</Button>
+          </a>
+          <Link href="/editor">
+            {' '}
+            <Button className="bg-black hover:bg-black/90 text-white rounded-2xl">Editor</Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
